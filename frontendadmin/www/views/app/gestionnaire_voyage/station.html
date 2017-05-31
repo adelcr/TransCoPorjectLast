@@ -1,0 +1,27 @@
+<ion-view view-title="Gestion Station" cache-view="false">
+    <ion-content>
+      <div class="row">
+        <div id="map" data-tap-disabled="true" class="col col-50"style="height:91vh;" ></div>
+        <div class="row col col-50">
+          <div ng-show="stationstab==1 || !stationstab ">
+            <button class=" button button-calm" ng-click="addStation()"><i  class="icon ion-android-add-circle" ></i> Ajouter Station</button>
+            <label class="item item-input ion-android-search" >
+             <input type="text" style="padding-left:10px;" placeholder="rechercher une station.." ng-model="search">
+            </label>
+            <ion-scroll zooming="true" direction="y" style="height: 500px">
+            <div class="list" style="margin-top:10px" ng-repeat="st in stations |filter:search">
+              <div class="item">
+                <a  class="item-icon-left dark"style="text-decoration: none;">
+                 <i  class="icon ion-android-pin" ></i>
+                 {{st.name}}
+               </a>
+                  <a style="float:right;" class="dark" ng-click="remove({{st}})"><i class="icon item-icon-right ion-android-cancel"></i></a>
+                  <a style="float:right;" class="dark" ng-click="modifier({{st}})" ><i class="icon item-icon-right ion-android-settings"></i></a>
+             </div>
+            </div>
+          </ion-scroll>
+          </div>
+        </div>
+        </div>
+    </ion-content>
+</ion-view>

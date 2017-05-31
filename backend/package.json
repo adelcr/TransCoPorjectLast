@@ -1,0 +1,18 @@
+{
+  "name": "transcoporject",
+  "main": "server.js",
+  "dependencies": {
+    "node-gyp-install": "^2.2.0",
+    "bcrypt": "^1.0.2",
+    "body-parser": "~1.9.2",
+    "express": "~4.9.8",
+    "jwt-simple": "^0.3.1",
+    "mongoose": "~4.2.4",
+    "morgan": "~1.5.0",
+    "passport": "^0.3.0",
+    "passport-jwt": "^1.2.1",
+    "gulp": "^3.8.10",
+    "gulp-jshint": "^1.9.0",
+    "gulp-nodemon": "^1.0.4"
+  }
+}

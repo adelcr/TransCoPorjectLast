@@ -1,0 +1,35 @@
+<ion-view class="Reclamation-view">
+  <ion-nav-title>
+    <span>Reclamation</span>
+  </ion-nav-title>
+  <ion-content>
+
+      <div class="user-bio">
+       <form  name="signup_form" class="">
+            <div class="item item-body">
+
+              <label class="item item-input">
+                <input type="text" placeholder="Titre" name="name" ng-model="reclamation.name" required>
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="description" name="description" ng-model="reclamation.description" required>
+              </label>
+              <label class="item item-input">
+                <input  type=file files-input base-sixty-four-input ngf-max-size="5MB"  ng-model='files' accept="image/*" />
+              </label>
+          
+              
+              <!-- <textarea rows="4" cols="1000" placeholder="Description" name="description" ng-model="description" required>
+              
+              </textarea> -->
+          
+              <button type="submit" class="button button-assertive button-block" ng-click="addreclam(files)" >
+                Send Reclamation
+              </button>
+
+            </div>
+            
+          </form>
+    </div>
+  </ion-content>
+</ion-view>

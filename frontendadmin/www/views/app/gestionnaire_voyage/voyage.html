@@ -1,0 +1,38 @@
+<ion-view view-title="Gestion voyage" cache-view="false">
+    <ion-content>
+        <div id="map" data-tap-disabled="true"style="height:45vh;" ></div>
+        <div >
+          <div class="row">
+            <div class="col col-75">
+              <label id="searchbar" class="item item-input ion-android-search" >
+               <input type="text" style="padding-left:10px;"   placeholder="selectionnez une ligne" id="searchS" ng-keyUp="searchStat()">
+              </label>
+              <ion-list  id="searchRes"></ion-list>
+            </div>
+            <div class="col col-25">
+              <button class=" button button-calm" ng-if="voyages" ng-click="addVoyage()"><i  class="icon ion-android-add-circle" ></i> Ajouter Voyage</button>
+            </div>
+            </div>
+            <ion-scroll zooming="true" direction="y" style="height: 500px">
+            <div class="list" style="margin-top:10px" >
+              <div class="item" ng-if="voyages" ng-repeat="voyage in voyages">
+                <a  class="item-icon-left dark"style="text-decoration: none;">
+                 <i  class="icon ion-clock" ></i>
+                  heur de départ : <i ng-bind="voyage.dateDepart | date:'hh:mm'"></i>
+               </a>
+                  <a style="float:right;" class="dark" ><i class="icon item-icon-right ion-android-cancel"></i></a>
+                  <a style="float:right;" class="dark" ><i class="icon item-icon-right ion-android-settings"></i></a>
+             </div>
+                 <p class="item" ng-if="voyages.length==0" style="text-decoration: none; text-align:center;padding-top:5%;height:30vh;">
+                  Aucun voyage programmé pour cette ligne
+               </p>   
+
+                <p class="item"style="text-decoration: none; text-align:center;padding-top:5%;height:30vh;" ng-if="!voyages">
+                  Selectionnez une ligne pour afficher les voyages disponibles 
+               </p>
+            </div>
+          </ion-scroll>
+          
+        </div>
+    </ion-content>
+</ion-view>

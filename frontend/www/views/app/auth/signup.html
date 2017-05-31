@@ -1,0 +1,49 @@
+<ion-view class="signup-view auth-view" cache-view="false">
+<div multi-bg="['img/bg-img.jpg']"></div>
+  <ion-content scroll="false">
+    <div class="row">
+      <div class="col col-center">
+        <div class="card sign-up-container">
+          <form name="signup_form" class="" novalidate>
+            <div class="item item-body">
+              <label class="item item-input">
+                <input type="email" placeholder="Email" name="user_email" ng-model="user.email" required>
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="Your Name" name="user_name" ng-model="user.name" required>
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="Your Last Name" name="user_lastname" ng-model="user.lastname" required>
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="Your adress" name="user_adress" ng-model="user.adress" required>
+              </label>
+              <label class="item item-input">
+                <input type="number" placeholder="Phone Number" name="user_phone" ng-model="user.phone" required>
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="Login" name="user_login" ng-model="user.login" required>
+              </label>
+              <label class="item item-input" show-hide-container>
+                <input type="password" placeholder="Password" name="user_password" ng-model="user.password" required show-hide-input>
+              </label>
+            </div>
+            <div class="item item-body bottom-content">
+              <button type="submit" class="button button-assertive button-block" ng-click="signup()" ng-disabled="signup_form.$invalid">
+                Sign Up
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="alternative-actions">
+          <a class="log-in button button-small button-clear button-light" ui-sref="app.login">
+            Log In
+          </a>
+          <a class="sign-up button button-small button-clear button-light" ui-sref="app.station">
+            Main menu
+          </a>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>

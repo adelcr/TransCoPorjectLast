@@ -1,0 +1,96 @@
+<ion-side-menus enable-menu-with-back-views="false">
+  <ion-side-menu-content class="post-size-14px">
+    <ion-nav-bar class="bar app-top-bar">
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+      <ion-nav-buttons side="right">
+       <button class="button button-icon button-clear ion-ios-search" >
+        </button>
+      </ion-nav-buttons>
+
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left" class="main-menu"> 
+    <ion-content>
+      <ion-list>
+       <div ng-show="user.User.name">
+        <ion-item class="heading-item item item-avatar" nav-clear menu-close ui-sref="app.profile">
+          <div class="user-image-container">
+            <pre-img ratio="_1_1" helper-class="rounded-image">
+             <img class="user-image" src="data:image/png;base64,{{user.User.image}}" spinner-on-load ui-sref="app.profile"></img>
+          	</pre-img>
+          </div>
+          <h2 class="greeting">Hi {{user.User.name}}</h2>
+          <p class="message">Welcome back</p>
+        </ion-item>
+      </div>
+      <div ng-show="isAuth!=true">
+        <ion-item class="heading-item item item-avatar" nav-clear menu-close ui-sref="app.signup">
+          <div class="user-image-container">
+            <pre-img ratio="_1_1" helper-class="rounded-image">
+              <img class="user-image" ng-src="img/avatar.png" spinner-on-load ui-sref="app.signup">
+            </pre-img>
+          </div>
+          <h2 class="greeting">Hi Visitor</h2>
+          <p class="message">Welcome </p> 
+        </ion-item>
+      </div> 
+
+      <!--   <ion-item  nav-clear menu-close >
+          
+              <img  ng-src="img/city.png" width="277" sizes="50" >
+        
+  
+          
+        </ion-item> -->
+
+       
+         <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.station">
+          <i class="icon ion-home"></i>
+          <h2 class="menu-text">Home</h2>
+        </ion-item>
+     
+
+        <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.ligne">
+          <i class="icon ion-navigate"></i>
+          <h2 class="menu-text">Find a way</h2>
+        </ion-item>
+
+        
+        <div ng-show="isAuth==true">
+             <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.favorie">
+          <i class="icon ion-star"></i>
+          <h2 class="menu-text">Favories</h2>
+        </ion-item>
+      </div>
+      <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.profile">
+        <i class="icon ion-gear-a"></i>
+        <h2 class="menu-text">Settings</h2>
+      </ion-item>
+      <div ng-show="isAuth==true">
+          <ion-item class="item-icon-left" nav-clear menu-close ui-sref='app.station' ng-click="logout()">
+          <i class="icon ion-log-out"></i>
+          <h2 class="menu-text">Logout</h2>
+        </ion-item> 
+        </div>
+        <div ng-show="isAuth==false">
+          <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.login">
+            <i class="icon ion-log-in"></i>
+            <h2 class="menu-text">Sign in</h2>
+          </ion-item>
+          <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.signup">
+            <i class="icon ion-key"></i>
+            <h2 class="menu-text">Sign up</h2>
+          </ion-item>
+        </div>
+
+        
+
+    </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

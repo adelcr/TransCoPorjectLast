@@ -1,0 +1,71 @@
+<ion-view view-title="Gestion Ligne">
+    <ion-content >
+      <div class="row">
+        <div class="col col-50">
+        <div id="map" data-tap-disabled="true" style="height:45vh;" ></div>
+        <label id="searchbar" ng-if="currenetLigne!=null" class="item item-input ion-android-search" >
+         <input type="text" style="padding-left:10px;" onblur='this.value=""' ng-blur="searchStat()" placeholder="ajouter une station" id="searchS" ng-keyUp="searchStat()">
+        </label>
+        <ion-list  id="searchRes"></ion-list>
+        <div id="actionBox">
+            <ion-item id="modif" style="background-color:#11c1f3;color:white;">{{currenetLigne.num}}  {{currenetLigneShow}}
+              <i ng-if="currenetLigne!=null" style="float:right;" class="icon item-icon-left ion-android-settings enable-pointer-events " ng-click="modifLigne()"></i>
+            </ion-item>
+            <ion-scroll has-bouncing="false" scrollbar-y="true" direction="y" style="overflow: hidden;height: 200px;">
+            <ion-list can-reorder="true" show-reorder="true"  >
+                <ion-item ng-show="stat!=null" ng-repeat="st in stat">
+                <a  class="item-icon-right ">
+                  <i class="order">{{st.order}}</i>
+                 <i  class="enable-pointer-events dark" ng-click="gotoPosStation(st.station._id)" >
+                 {{st.station.name}}
+                 </i>
+                 </a>
+                 <a style="float:right;" ng-click="removeSt(st.station._id,$index)"><i class="enable-pointer-events icon item-icon-right ion-android-cancel"></i></a>
+               <ion-reorder-button class="ion-navicon button-stable" on-reorder="moveItem(st,$fromIndex,$toIndex)">
+                 </ion-reorder-button>
+               </ion-item>
+               <ion-item ng-show="stat==null">
+               <i style="text-align: center;">Aucune ligne selectionner</i>
+              </ion-item>
+              <ion-item ng-show="stat.length==0">
+              <i style="text-align: center;">ligne ne contient pas de station</i>
+             </ion-item>
+            </ion-list>
+            </ion-scroll>
+        </div>
+        </div>
+        <div class="row col col-50">
+            <button class=" button button-calm" ng-click="addLigne()"><i  class="icon ion-android-add-circle" ></i> Ajouter Ligne</button>
+            <label class="item item-input ion-android-search" >
+             <input type="text" style="padding-left:10px;" placeholder="rechercher une ligne.." ng-model="search">
+            </label>
+            <ion-scroll has-bouncing="true"  direction="y" style="overflow: hidden;height: 470px;">
+            <ion-list show-reorder="true" style="margin-top:10px;">
+
+              <div ng-repeat="li in ligne |filter:{name:search}">
+                <ion-item class="enable-pointer-events" ng-click="toggleGroup(li)" ng-class="{active: isGroupShown(li)}">
+                  <a  class="item-icon-left dark"style="text-decoration: none;">
+                   <i  class="icon ion-arrow-graph-up-right stable" ></i>
+                   {{li.name}} : {{li.description}}
+                 </a>
+                  <a style="float:right;"  ><i class="icon item-icon-left" ng-class="isGroupShown(li) ? 'ion-minus' : 'ion-plus'"></i></a>
+                  <a style="float:right;"  ng-click="removeLi(li,$index)"><i class="enable-pointer-events icon item-icon-left ion-android-cancel"></i></a>
+                    <a style="float:right;" ng-show="li.duree"> {{li.duree | time:'ss'}}</a>
+               </ion-item>
+               <ion-list show-reorder="true" style="margin-top:10px">
+                 <ion-item  ng-click="gotoPosStation(st.station._id)" class="item-accordion enable-pointer-events" ng-show="isGroupShown(li)"  ng-repeat="st in li.stations" >
+
+                   <a class="item-icon-left  dark"style="text-decoration: none;">
+                     <i class="ion-location calm" style="margin-right:5px;"></i>
+                    {{st.station.name}}
+                  </a>
+                  <a style="float:right;" ng-show="st.duration"> {{st.duration | time:'ss'}}</a>
+                </ion-item>
+               </ion-list>
+              </div>
+            </ion-list>
+          </ion-scroll>
+        </div>
+        </div>
+    </ion-content>
+</ion-view>

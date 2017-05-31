@@ -1,0 +1,56 @@
+<!-- <ion-view view-title=" Find you Way">
+    <ion-content>
+        <div class="row" >
+            <div id="map" data-tap-disabled="true" class="col col-100" style="height:91vh;" ></div>  
+        </div> 
+
+        <div id="floating-panel">
+            <b>Start: </b>
+                <select id="start" ng-model="start" selected
+                    ng-options="sta as sta.name for sta in stations">
+                </select>
+            <b>End: </b>
+          <select id="end" ng-model="end" selected
+                ng-options="sta as sta.name for sta in stations"
+                ng-change="finditi()">
+             </select>
+        </div>
+        
+        <div class="row" >
+            <p>Display information : {{ligneS.name}}</p>
+        </div> 
+    </ion-content>
+</ion-view> -->
+<ion-view view-title=" Find your Way">
+
+    <ion-content>
+        <div class="row" >
+            <div id="map" data-tap-disabled="true" class="col col-100" style="height:91vh;" ></div>  
+        </div> 
+
+        <div id="floating-panel">
+            <b>Start: </b>
+                <select  id="origin" ng-model="data.origin" selected
+                    ng-options="sta as sta.name for sta in stations"
+                   >
+                </select>
+            <b>End: </b>
+          <select  id="destination" ng-model="data.destination" selected
+                ng-options="sta as sta.name for sta in stations"
+                ng-change="finditi(data.origin,data.destination)">
+             </select>
+        </div>
+        <div ng-show="dist" id="floating-panel2">
+            <p> Distance Entre {{data.origin.name}} et {{data.destination.name}} est {{dist}} m</p>
+             <div ng-repeat="s in stationligne">
+                 {{s.station.name}}
+             </div> 
+
+        </div>
+
+        
+        <!-- <div class="row" >
+            <p>Display information : {{data.destination}}</p>
+        </div>  -->
+    </ion-content>
+</ion-view>

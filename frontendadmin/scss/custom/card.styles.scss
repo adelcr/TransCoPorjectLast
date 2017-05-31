@@ -1,0 +1,47 @@
+
+  ion-card {
+    position: relative;
+  }
+  .compte-name{
+    text-align: left;
+    position: absolute;
+    top: 17%;
+    left: 33%;
+    font-size: 1.5vw;
+    width: 100%;
+    color: #fff;
+  }
+  .card-image{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    max-width: 27%;
+    max-height: 38%;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
+  .card-title {
+    position: absolute;
+    top: 46%;
+
+    font-size: 2.0vw;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    width: 100%;
+
+  }
+  .card-subtitle {
+    font-size: 1.5vw;
+    position: absolute;
+    text-align: left;
+    top: 80%;
+    color: #fff;
+    width: 100%;
+    left: 5%;
+  }
+  p{
+    text-align: left;
+    color: #fff;
+  }

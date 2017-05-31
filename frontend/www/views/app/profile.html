@@ -1,0 +1,53 @@
+<ion-view class="profile-view">
+  <ion-nav-title>
+    <span>Profile</span>
+  </ion-nav-title>
+  <ion-content>
+    <div class="top-content row">
+      <div class="profile-container">
+        
+        <div class="user-name">{{voyageur.User.name}}</div>
+        <div class="user-twitter">{{voyageur.User.email}}</div>
+      </div>
+     
+    </div>
+      <div class="user-bio">
+       <form name="signup_form" class="" novalidate>
+            <div class="item item-body">
+            <!-- <label class="item item-input">
+                <input type="number" placeholder="{{user.cin}}" name="user_cin" ng-model="cin" required>
+              </label> -->
+              <label class="item item-input">
+                <input type="email" placeholder="{{voyageur.User.email}}" name="user_email" ng-model="voyageur.User.email" required>
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="{{voyageur.User.name}}" name="user_name" ng-model="voyageur.User.name" required>
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="{{voyageur.User.lastname}}" name="user_lastname" ng-model="voyageur.User.lastname" required>
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="{{voyageur.User.adress}}" name="user_adress" ng-model="voyageur.User.adress" >
+              </label>
+              <label class="item item-input">
+                <input type="number" placeholder="{{voyageur.User.phone}}" name="user_phone" ng-model="voyageur.User.phone" >
+              </label>
+              <label class="item item-input">
+                <input type="text" placeholder="{{voyageur.User.login}}" name="user_login" ng-model="voyageur.User.login" required>
+              </label>
+               <label class="item item-input">
+                <input type=file files-input base-sixty-four-input ngf-max-size="5MB"  ng-model='files' accept="image/*" />
+              </label>
+<!--               <label class="item item-input" show-hide-container>
+                <input type="password" placeholder="Enter your password" name="user_password" ng-model="user.password" required show-hide-input>
+              </label> -->
+            </div>
+            <div class="item item-body bottom-content">
+              <button type="submit" class="button button-assertive button-block" ng-click="profile(files)" ng-disabled="signup_form.$invalid">
+                Update Profile
+              </button>
+            </div>
+          </form>
+    </div>
+  </ion-content>
+</ion-view>
