@@ -28,18 +28,8 @@ var VoyageurSchema =new Schema({
         , password: { type: String, required: true}
         
         , role : { type: String, required: true}
-    },
-    ComptePaiement:{
-        exist: {type: Boolean, required: true}
 
-        ,connected : {type: Boolean, default:false}
-
-        ,created: {type: Date,default: Date.now}
-
-        , NumberCard: {type: Number, unique: true }
-        
-        , solde: {type: Number, required: true}
-
+        , activated : { type : Boolean, default: 1}
     }
 });
 VoyageurSchema.pre('save', function (next) {

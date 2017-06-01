@@ -1,0 +1,33 @@
+<ion-view view-title="Gestion Voyageur" cache-view="false">
+    <ion-content>
+      <div class="row">
+        <table >
+          <tr>
+            <td>#</td>
+            <td>Nom</td>
+            <td>Prénom</td>
+            <td>E-mail</td>
+            <td>Adress</td>
+            <td>Tél</td>
+            <td>Role</td>
+            <td>activé</td>
+            <td>Action</td>
+          </tr>
+          <tr ng-repeat="vo in voyageur ">
+            <td>{{$index}}</td>
+            <td>{{vo.User.name}}</td>
+            <td>{{vo.User.lastname}}</td>
+            <td>{{vo.User.email}}</td>
+            <td>{{vo.User.adress}}</td>
+            <td>{{vo.User.phone}}</td>
+            <td>{{vo.User.role}}</td>
+            <td>{{vo.User.activated}}</td>
+            <td><a style="float:right;" class="dark" ng-click="activate(vo._id,$index)"><i class="icon item-icon-right ion-plus-circled"></i></a>
+            <a style="float:right;" class="dark" ng-click="deactivate(vo._id,$index)"><i class="icon item-icon-right ion-android-cancel"></i></a>
+            </td>
+          </tr>
+      
+        </table>
+      </div>
+    </ion-content>
+</ion-view>

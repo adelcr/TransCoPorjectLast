@@ -110,21 +110,6 @@ apiVoyageur.post('/getvoyageurbycin', function(req, res) {
         });
     }
 });
-//get all voyageurs
-apiVoyageur.get('/allvoyageur',function(req, res) {
-    Voyageur.find({
-    }, function(err, voyageur) {
-        if (err) throw err;
-
-        if (!voyageur) {
-            res.send({success: false, msg: 'fail to load all voyageurs.'});
-        } 
-        else {
-            res.json({success: true, voyageur: voyageur});  
-        }
-
-    });
-});
 
 apiVoyageur.put('/updatprofile/:id',bodyParser,function (req,res) {
 
@@ -176,4 +161,68 @@ getToken =function (headers) {
     }
 
 };
+
+//get all voyageurs
+apiVoyageur.get('/allvoyageur',function(req, res) {
+    Voyageur.find({
+    }, function(err, voyageur) {
+        if (err) throw err;
+
+        if (!voyageur) {
+            res.send({success: false, msg: 'fail to load all voyageurs.'});
+        } 
+        else {
+            res.json({success: true, voyageur: voyageur});  
+        }
+
+    });
+});
+//activate
+apiVoyageur.put('/activate/:id',function (req,res,next) {
+
+    Voyageur.findById(req.params.id, function(err, voyageur) {
+                
+            voyageur.User.activated=true;
+            
+            Voyageur.findByIdAndUpdate( voyageur._id,voyageur,{new:true})
+            .exec(function (err,li) {
+                if (err){
+                 throw err;
+                }else {
+                    return res.json({success: true,msg: "Voyageur activated Successful ",voyageur:voyageur});
+                }
+            });
+        });
+
+});
+//activate
+apiVoyageur.put('/deactivate/:id',function (req,res,next) {
+
+      Voyageur.findById(req.params.id, function(err, voyageur) {
+                
+            voyageur.User.activated=false;
+            console.log(voyageur);
+            Voyageur.findByIdAndUpdate( voyageur._id,voyageur,{new:true})
+            .exec(function (err,li) {
+                if (err){
+                 throw err;
+                }else {
+                    return res.json({success: true,msg: "Voyageur deactivated Successful ",voyageur:voyageur});
+                }
+            });
+        });
+
+});
+// supp
+apiVoyageur.delete('/remove/:id',function (req,res,next) {
+        Voyageur.findByIdAndRemove(req.params.id, function (err,voyageur) {
+            if (err){
+             throw err;
+            }else {
+                return res.json({success: true,msg: "delete voyageur Successful ",voyageur:voyageur});
+            }
+
+        });
+
+});
 module.exports = apiVoyageur;

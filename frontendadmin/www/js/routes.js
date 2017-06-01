@@ -12,6 +12,7 @@ angular.module('starter.routes', ['starter.config'])
   })
 
   .state('auth.walkthrough', {
+    cache: false,
     url: '/walkthrough',
     templateUrl: "views/auth/walkthrough.html"
   })
@@ -81,6 +82,18 @@ angular.module('starter.routes', ['starter.config'])
         cache:false,
         templateUrl: "views/app/gestionnaire_voyage/bus.html",
         controller: 'BusCtrl'
+        }
+    }
+  })
+  //voyageur
+    .state('app.voyageur', {
+    url: "/voyageur",
+    cache:false,
+    views: {
+      'menuContent': {
+        cache:false,
+        templateUrl: "views/app/gestionnaire_admin/voyageur.html",
+        controller: 'VoyageurCtrl'
         }
     }
   })

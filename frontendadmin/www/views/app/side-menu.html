@@ -11,7 +11,7 @@
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
-
+ 
   <ion-side-menu side="left" class="main-menu" expose-aside-when="large">
     <ion-content>
       <ion-list>
@@ -24,7 +24,8 @@
           <h2 class="greeting">{{user.name}}</h2>
           <p class="message">Welcome back</p>
         </ion-item>
-        <div ng-if="user.role=='adminpay_role'">
+        <div ng-show="isAuth==true">
+        <div ng-if="user.role=='agent_role'">
            <ion-item class="item-icon-left " nav-clear menu-close ui-sref="app.maps">
             <i class="icon ion-wand"></i>
             <h2 class="menu-text">Acceuil</h2>
@@ -45,19 +46,32 @@
             <i class="icon ion-wand"></i>
             <h2 class="menu-text">Gestion bus</h2>
           </ion-item>
+           <ion-item class="item-icon-left" nav-clear menu-close ui-sref='auth.walkthrough' ng-click="logout()">
+          <i class="icon ion-log-out"></i>
+          <h2 class="menu-text">Logout</h2>
+        </ion-item>
         </div>
 
-        <div ng-if="user.role=='adminvoy_role'">
-          <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.feeds-categories">
-            <i class="icon ion-radio-waves"></i>
-            <h2 class="menu-text">Feeds</h2>
+        <div ng-if="user.role=='admin_role'">
+          <ion-item class="item-icon-left " nav-clear menu-close ui-sref="app.maps">
+            <i class="icon ion-wand"></i>
+            <h2 class="menu-text">Acceuil</h2>
           </ion-item>
-          <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.wordpress">
-            <i class="icon ion-social-wordpress"></i>
-            <h2 class="menu-text">Wordpress</h2>
+          <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.voyageur">
+            <i class="icon ion-wand"></i>
+            <h2 class="menu-text">Gestion Voyageur</h2>
           </ion-item>
+          <ion-item class="item-icon-left" nav-clear menu-close ui-sref="app.agent">
+            <i class="icon ion-wand"></i>
+            <h2 class="menu-text">Gestion Agent d'exploitation</h2>
+          </ion-item>
+           <ion-item class="item-icon-left" nav-clear menu-close ui-sref='auth.walkthrough' ng-click="logout()">
+          <i class="icon ion-log-out"></i>
+          <h2 class="menu-text">Logout</h2>
+        </ion-item>
         </div>
     </ion-list>
     </ion-content>
   </ion-side-menu>
+</div>
 </ion-side-menus>

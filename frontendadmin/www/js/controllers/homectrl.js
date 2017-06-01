@@ -1,10 +1,26 @@
 angular.module('starter.controllers')
 
-.controller('AppCtrl', function($scope,AuthService, $ionicConfig) {
-			
-	AuthService.getinfo().then(function(result){	 
-	 	$scope.user=result.User;
-	});
+.controller('AppCtrl', function($scope,AuthService, $ionicConfig,$state) {
+	$scope.isAuth=false;
+	$scope.isAuth=AuthService.isAuthenticated();
+	console.log($scope.isAuth);
+	if($scope.isAuth==true)	{
+			AuthService.getinfo().then(function(result){
+	 		$scope.user=result.User;
+			});
+
+			$scope.logout = function() {
+			    AuthService.logout();
+		 		$state.go('auth.walkthrough');
+		 	};
+	 	}else{
+	 		$scope.logout = function() {
+			    AuthService.logout();
+		 		$state.go('auth.walkthrough');
+
+		 	};
+	 	}
+	
 
 })
 
