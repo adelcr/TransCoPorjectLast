@@ -29,7 +29,6 @@ apiVoyageur.post('/signup', function(req, res) {
             'User.role': role           
         });
         console.log(newVoyageur);
-        // save the user
         newVoyageur.save(function(err) {
             console.log("here");
             if (err) {
