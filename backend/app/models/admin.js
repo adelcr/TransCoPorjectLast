@@ -15,6 +15,8 @@ var AdminSchema =new Schema({
 
         , name: { type: String, required: true}
 
+        , lastname: { type: String, required: true}
+
         , image: {type: String}
 
         , login: { type: String, lowercase: true }

@@ -1,0 +1,28 @@
+<ion-view view-title="Gestion agent" cache-view="false">
+  <ion-nav-buttons   side="right">
+        <a class=" button button-icon icon positive" ng-click="addagent()" >Ajouter Agent <i class="ion-android-add-circle"></i></a>
+    </ion-nav-buttons>
+    <ion-content>
+      <div class="row">
+        <table >
+          <tr>
+            <td>#</td>
+            <td>Nom</td>
+            <td>Prénom</td>
+            <td>E-mail</td>
+            <td>Action</td>
+          </tr>
+          <tr ng-repeat="ag in agent ">
+            <td>{{$index}}</td>
+            <td>{{ag.User.name}}</td>
+            <td>{{ag.User.lastname}}</td>
+            <td>{{ag.User.email}}</td>
+            <td><a style="float:right;" class="dark" ng-click="updateagent(ag)"><i class="icon item-icon-right ion-plus-circled"></i></a>
+            <a style="float:right;" class="dark" ng-click="removeAgent(ag._id,$index)"><i class="icon item-icon-right ion-android-cancel"></i></a>
+            </td>
+          </tr>
+      
+        </table>
+      </div>
+    </ion-content>
+</ion-view>

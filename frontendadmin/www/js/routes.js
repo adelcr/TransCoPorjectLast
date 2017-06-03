@@ -97,6 +97,18 @@ angular.module('starter.routes', ['starter.config'])
         }
     }
   })
+//agent
+    .state('app.agent', {
+    url: "/agent",
+    cache:false,
+    views: {
+      'menuContent': {
+        cache:false,
+        templateUrl: "views/app/gestionnaire_admin/agent.html",
+        controller: 'AgentCtrl'
+        }
+    }
+  })
   //ligne
   .state('app.ligne', {
     url: "/ligne",

@@ -1,0 +1,32 @@
+
+     <div class="user-bio"> 
+       <form name="signup_form" class="" novalidate> 
+            <div class="item item-body"> 
+              <label class="item item-divider" ><i class="icon ion-person"></i>  Agent informations:</label> 
+              <label class="item item-input"> 
+                <input type="text" placeholder="Matricule" name="user_cin" ng-model="currentagent.matricule" required> 
+              </label> 
+              <label class="item item-input"> 
+                <input type="email" placeholder="email" name="user_email" ng-model="currentagent.User.email" required> 
+              </label> 
+              <label class="item item-input"> 
+                <input type="text" placeholder="name" name="user_name" ng-model="currentagent.User.name" required> 
+              </label> 
+              <label class="item item-input"> 
+                <input type="text" placeholder="lastname" name="user_lastname" ng-model="currentagent.User.lastname" > 
+              </label> 
+              <label class="item item-input"> 
+                <input type="text" placeholder="user login" name="user_login" ng-model="currentagent.User.login" required> 
+              </label>
+              <label class="item item-input"> 
+                <input type="password" placeholder="Password" name="user_password" ng-model="currentagent.User.password" required> 
+              </label> 
+
+            </div> 
+            <div class="item item-body bottom-content"> 
+              <button type="submit" class="button button-assertive button-block" ng-click="submitupdate()" ng-disabled="signup_form.$invalid"> 
+                Update Profile 
+              </button> 
+            </div> 
+          </form> 
+    </div> 

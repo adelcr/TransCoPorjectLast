@@ -50,6 +50,10 @@ var apiAdmin = require('./app/routes/admin-route');
 // connect the api routes under /api/*
 app.use('/admin', apiAdmin);
 
+var apiAgent = require('./app/routes/agent-route');
+// connect the api routes under /api/*
+app.use('/agent', apiAgent);
+
 var apiStation = require('./app/routes/station-route');
 // connect the api routes under /api/*
 app.use('/station', apiStation);
