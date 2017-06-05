@@ -13,6 +13,7 @@ angular.module('starter', [
   'naif.base64',
   'angularMoment',
   'ui.sortable',
+  'angularUtils.directives.dirPagination',
   'starter.controllers',
   'starter.factories',
   'starter.routes',

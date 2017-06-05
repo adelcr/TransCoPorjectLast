@@ -1,28 +1,84 @@
 <ion-view view-title="Gestion agent" cache-view="false">
+<style>
+
+
+table {
+    border: 1px solid #ccc;
+    width: 100%;
+    margin:0;
+    padding:0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+table tr {
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: center;
+}
+
+table th {
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+</style>
   <ion-nav-buttons   side="right">
         <a class=" button button-icon icon positive" ng-click="addagent()" >Ajouter Agent <i class="ion-android-add-circle"></i></a>
     </ion-nav-buttons>
     <ion-content>
-      <div class="row">
-        <table >
-          <tr>
-            <td>#</td>
-            <td>Nom</td>
-            <td>Prénom</td>
-            <td>E-mail</td>
-            <td>Action</td>
-          </tr>
-          <tr ng-repeat="ag in agent ">
-            <td>{{$index}}</td>
-            <td>{{ag.User.name}}</td>
-            <td>{{ag.User.lastname}}</td>
-            <td>{{ag.User.email}}</td>
-            <td><a style="float:right;" class="dark" ng-click="updateagent(ag)"><i class="icon item-icon-right ion-plus-circled"></i></a>
-            <a style="float:right;" class="dark" ng-click="removeAgent(ag._id,$index)"><i class="icon item-icon-right ion-android-cancel"></i></a>
-            </td>
-          </tr>
-      
-        </table>
-      </div>
+    <div style="margin:20px;">
+      <form class="form-inline">
+        <div class="form-group" style="float:right;">
+          <input type="text" ng-model="search" class="form-control" placeholder="  Search">
+        </div>
+      </form>
+    <table>
+    <thead style=" background-color:lightgrey;">
+        <tr>
+          <th># </td>
+            <th ng-click="sort('matricule')">Matricule
+            <span class="glyphicon sort-icon" ng-show="sortKey=='matricule'" ng-class="{'ion-ios-arrow-up':reverse,'ion-ios-arrow-down':!reverse}"></span>
+          </th>
+          <th ng-click="sort('name')">Nom
+            <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'ion-ios-arrow-up':reverse,'ion-ios-arrow-down':!reverse}"></span>
+          </th>
+          <th ng-click="sort('lastname')" >Prénom
+            <span class="glyphicon sort-icon" ng-show="sortKey=='lastname'" ng-class="{'ion-ios-arrow-up':reverse,'ion-ios-arrow-down':!reverse}"></span>
+          </th>
+          <th ng-click="sort('email')">E-mail
+            <span class="glyphicon sort-icon" ng-show="sortKey=='email'" ng-class="{'ion-ios-arrow-up':reverse,'ion-ios-arrow-down':!reverse}"></span>
+          </th>
+          <th >Action</th>
+       </tr>
+    </thead>
+    <tbody>
+        <tr dir-paginate="ag in agent| filter:search| orderBy:sortKey:reverse|itemsPerPage:6">
+          <td data-label="#">{{$index}}</td>
+          <td data-label="matricule">{{ag.matricule}}</td>
+          <td data-label="Nom">{{ag.User.name}}</td>
+          <td data-label="Prénom">{{ag.User.lastname}}</td>
+          <td data-label="E-mail">{{ag.User.email}}</td>
+
+          <td data-label="activé" ng-show="ag.User.activated==true">oui</td>
+           <td data-label="activé" ng-show="ag.User.activated==false">non</td>
+          <td data-label="Action">
+            <button class="button button-balanced" ng-click="updateagent(ag)">Modifier</button>
+            <button class="button button-assertive" ng-click="removeAgent(ag._id,$index)">Supprimer</button>
+          </td>
+        </tr>
+    </tbody>
+</table>
+        <dir-pagination-controls 
+          max-size="5"
+          direction-links="true"
+          boundary-links="true" >
+        </dir-pagination-controls>
+</div>
     </ion-content>
 </ion-view>

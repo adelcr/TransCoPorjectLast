@@ -1,8 +1,6 @@
 <ion-view view-title="Gestion Voyageur" cache-view="false">
 <style>
-body {   
-    font-family: arial;
-}
+
 
 table {
     border: 1px solid #ccc;
@@ -29,66 +27,47 @@ table th {
     letter-spacing: 1px;
 }
 
-@media screen and (max-width: 600px) {
-
-    table {
-        border: 1px;
-    }
-
-    table thead {
-        display: none;
-    }
-
-    table tr {
-        margin-bottom: 10px;
-        display: block;
-        border-bottom: 2px solid #ddd;
-    }
-
-    table td {
-        display: block;
-        text-align: right;
-        font-size: 13px;
-        border-bottom: 1px dotted #ccc;
-    }
-
-    table td:last-child {
-        border-bottom: 0;
-    }
-
-    table td:before {
-        content: attr(data-label);
-        float: left;
-        text-transform: uppercase;
-        font-weight: bold;
-    }
-}
 </style>
     <ion-content>
     <div style="margin:20px;">
+      <form class="form-inline">
+        <div class="form-group" style="float:right;">
+          <input type="text" ng-model="search" class="form-control" placeholder="Search">
+        </div>
+      </form>
     <table>
     <thead style=" background-color:lightgrey;">
         <tr>
-          <th>#</td>
-          <th>Nom</th>
-          <th >Prénom</th>
-          <th >E-mail</th>
-          <th >Adress</th>
-          <th >Tél</th>
-          <th >Role</th>
-          <th >activé</th>
+          <th># </td>
+          <th ng-click="sort('name')">Nom
+            <span class="glyphicon sort-icon" ng-show="sortKey=='name'" ng-class="{'ion-ios-arrow-up':reverse,'ion-ios-arrow-down':!reverse}"></span>
+          </th>
+          <th ng-click="sort('lastname')" >Prénom
+            <span class="glyphicon sort-icon" ng-show="sortKey=='lastname'" ng-class="{'ion-ios-arrow-up':reverse,'ion-ios-arrow-down':!reverse}"></span>
+          </th>
+          <th ng-click="sort('email')">E-mail
+            <span class="glyphicon sort-icon" ng-show="sortKey=='email'" ng-class="{'ion-ios-arrow-up':reverse,'ion-ios-arrow-down':!reverse}"></span>
+          </th>
+          <th ng-click="sort('adress')">Adress
+            <span class="glyphicon sort-icon" ng-show="sortKey=='adress'"ng-class="{'ion-ios-arrow-up':reverse,'ion-ios-arrow-down':!reverse}"></span>
+          </th>
+          <th ng-click="sort('phone')" >Tél
+            <span class="glyphicon sort-icon" ng-show="sortKey=='phone'" ng-class="{'ion-ios-arrow-up':reverse,'ion-ios-arrow-down':!reverse}"></span>
+          </th>
+          <th ng-click="sort('activated')" >activé
+            <span class="glyphicon sort-icon" ng-show="sortKey=='activated'" ng-class="{'ion-ios-arrow-up':reverse,'ion-ios-arrow-down':!reverse}"></span>
+          </th>
           <th >Action</th>
        </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="vo in vovo">
+        <tr dir-paginate="vo in voyageur | filter:search| orderBy:sortKey:reverse|itemsPerPage:6">
           <td data-label="#">{{$index}}</td>
           <td data-label="Nom">{{vo.User.name}}</td>
           <td data-label="Prénom">{{vo.User.lastname}}</td>
           <td data-label="E-mail">{{vo.User.email}}</td>
           <td data-label="Adress">{{vo.User.adress}}</td>
           <td data-label="Tél">{{vo.User.phone}}</td>
-          <td data-label="Role">{{vo.User.role}}</td>
           <td data-label="activé" ng-show="vo.User.activated==true">oui</td>
            <td data-label="activé" ng-show="vo.User.activated==false">non</td>
           <td data-label="Action">
@@ -98,9 +77,11 @@ table th {
         </tr>
     </tbody>
 </table>
-<button ng-repeat="n in [] | range:nbPage"  ng-click="loadNextPage()">
-            {{n}}
-        </button>
+        <dir-pagination-controls 
+          max-size="5"
+          direction-links="true"
+          boundary-links="true" >
+        </dir-pagination-controls>
 </div>
     </ion-content>
 </ion-view>
