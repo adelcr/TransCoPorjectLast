@@ -26,6 +26,7 @@ angular.module('starter', [
   'ngMap',
   'ngResource',
   'ngCordova',
+  'chart.js',
   'slugifier',
   'ionic.contrib.ui.tinderCards',
   'youtube-embed'
