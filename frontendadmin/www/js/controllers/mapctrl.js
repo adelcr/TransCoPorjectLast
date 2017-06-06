@@ -29,7 +29,15 @@ angular.module('starter.controllers')
                 i++;
 			});
 		});	
-
+	    function updateBus($scope,$Map){
+	    	BusService.updatePosBus($scope,$Map);
+	    	
+	    	return $timeout(function() { // boucle
+	    		
+          		return updateBus($scope,$Map);
+        	},500);
+	    }
+		updateBus($scope,$Map);
 			
 	});
 });

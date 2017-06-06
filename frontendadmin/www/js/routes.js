@@ -72,6 +72,18 @@ angular.module('starter.routes', ['starter.config'])
         controller: 'VoyageCtrl'
         }
     }
+  })  
+  //historique
+  .state('app.historique', {
+    url: "/historique",
+    cache:false,
+    views: {
+      'menuContent': {
+        cache:false,
+        templateUrl: "views/app/gestionnaire_voyage/historique.html",
+        controller: 'HistoriqueCtrl'
+        }
+    }
   })
   //bus
     .state('app.bus', {

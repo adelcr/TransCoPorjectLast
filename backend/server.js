@@ -71,6 +71,10 @@ var apiVoyage = require('./app/routes/voyage-route');
 // connect the api routes under /api/*
 app.use('/voyage', apiVoyage);
 
+var apiHistorique = require('./app/routes/historique-route');
+// connect the api routes under /api/*
+app.use('/historique', apiHistorique);
+
 
 
 
