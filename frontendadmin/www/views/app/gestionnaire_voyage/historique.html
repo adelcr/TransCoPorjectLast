@@ -26,6 +26,10 @@ table th {
     font-size: 14px;
     letter-spacing: 1px;
 }
+.container {
+  width: 80%;
+  margin: 20px auto;
+}
 
 </style>
     <ion-content>
@@ -66,8 +70,13 @@ table th {
           boundary-links="true" >
         </dir-pagination-controls>
 </div>
-<canvas id="bar" class="chart chart-bar" 
+<div class="container"> 
+  
+  <canvas id="bar" class="chart chart-bar" 
   chart-data="data" chart-labels="labels" chart-series="series">
-</canvas>
+  </canvas>
+
+</div>
+
     </ion-content>
 </ion-view>
