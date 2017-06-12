@@ -12,13 +12,26 @@ apiVoyage.post('/add', function(req, res) {
         res.json({success: false, msg: 'Please pass ligne.'});
     } else {
         var dateDepart= new Date(req.body.dateDepart);
+
         var dateArriver= new Date(req.body.dateArriver);
         var newVoyage = new Voyage({
             'ligne': req.body.ligne,
-            'dateDepart': dateDepart,
-            'dateArriver': dateArriver
+            'dateDepart': dateDepart
         });
-       
+        console.log(req.body.dateDepart);
+        console.log(dateDepart);
+
+        console.log(req.body.dateArriver);
+        console.log(dateArriver);
+        for (var i =0; i <= 6; i++) {
+            var estimation={
+                jour:i,
+                duration:req.body.duree,
+                dateArriver:dateArriver
+            }
+            newVoyage.estimation.push(estimation);
+        };
+       console.log(newVoyage);
         // save the user
         newVoyage.save(function(err) {
             if (err) {

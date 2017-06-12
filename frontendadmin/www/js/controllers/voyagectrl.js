@@ -58,7 +58,8 @@ angular.module('starter.controllers')
 				      if ((!$scope.data.dateDepart)||(!$scope.data.dateArriver)) {
 				        e.preventDefault();
 				      }else {
-				      	$scope.data.dateArriver=$scope.data.dateDepart;
+				      	console.log($scope.data.dateDepart);
+				      	console.log($scope.data.dateArriver);
 				        $scope.enregistrer=true;
 				      }
 				    }
@@ -67,7 +68,7 @@ angular.module('starter.controllers')
 			});
 			myPopup.then(function(res) {
 				if ($scope.enregistrer) {
-				  	VoyageService.addVoyage($scope.currenetLigne._id,$scope.data.dateDepart,$scope.dateArriver);
+				  	VoyageService.addVoyage($scope.currenetLigne._id,$scope.data.dateDepart,$scope.currenetLigne.duree,$scope.data.dateArriver);
 			        VoyageService.getVoyageByLigne($scope.currenetLigne._id).then(function(result){
 			        $scope.voyages=result;	
 			        });	   

@@ -13,12 +13,15 @@ var AppService ={
       });
       return q.promise;
  	},
-  addVoyage:function(ligne,dateDepart,dateArriver) {
+  addVoyage:function(ligne,dateDepart,duree,dateArriver) {
     var q=$q.defer();
+    console.log(dateDepart);
+                console.log(dateArriver);
     var data = {
             ligne: ligne,
             dateDepart: dateDepart,
-            dateArriver: dateArriver
+            dateArriver: dateArriver,
+            duree:duree
         };
       $http.post(API_ENDPOINT.url + 'voyage/add',data).then(function(result) {
         if (result.data.voyage) {
