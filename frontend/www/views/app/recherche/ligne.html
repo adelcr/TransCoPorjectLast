@@ -21,11 +21,58 @@
         </div> 
     </ion-content>
 </ion-view> -->
+<style type="text/css">
+#floating-panel {
+        position: absolute;
+        top: 50px;
+        left: 25%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
+#floating-panelancien {
+        position: absolute;
+        top: 50px;
+        left: 35%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+
+
+#floating-panel2{
+     position: absolute;
+        top: 50px;
+        right: 0%;
+        height:100%;
+        width: 20%;
+        z-index: 5;
+        background-color: #fff;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+}
+
+</style>
 <ion-view view-title=" Find your Way">
 
     <ion-content>
         <div class="row" >
-            <div id="map" data-tap-disabled="true" class="col col-100" style="height:91vh;" ></div>  
+            <div id="map" data-tap-disabled="true" class="col col-100" style="height:100vh;" ></div>  
         </div> 
 
         <div id="floating-panel">
@@ -40,17 +87,67 @@
                 ng-change="finditi(data.origin,data.destination)">
              </select>
         </div>
-        <div ng-show="dist" id="floating-panel2">
-            <p> Distance Entre {{data.origin.name}} et {{data.destination.name}} est {{dist}} m</p>
-             <div ng-repeat="s in stationligne">
-                 {{s.station.name}}
-             </div> 
+<div id="floating-panel2" ng-show="matrice" style="float:right;width:30%;height 100%">
+<h3>Les itinéraires possible</h3>
+         <ion-scroll has-bouncing="true"  direction="y" style="overflow: hidden;height: 470px;" >
+         vous avez {{matrice.length}} chemin pour aller de {{origin.name}} vers {{destination.name}} avec une distance de {{dist}} m.
+            <ion-list show-reorder="true" style="margin-top:10px;">
 
-        </div>
+              <div ng-repeat="iti in matrice">
+              Itinéraire {{$index +1}}:
+ 
 
-        
-        <!-- <div class="row" >
-            <p>Display information : {{data.destination}}</p>
+                
+                
+                <ion-item class="enable-pointer-events" ng-click="toggleGroup(iti)" >
+
+                 <a style="text-decoration: none;" ng-repeat="i in iti">
+                   <i  class="icon ion-arrow-graph-up-right stable" ></i> 
+                 {{i.station.name}} 
+                 </a>
+                  <a style="float:right;"  ><i class="icon item-icon-left" ng-class="isGroupShown(i) ? 'ion-minus' : 'ion-plus'"></i></a>
+   
+               </ion-item>
+               </div>
+
+              </div>
+         
+
+            </ion-list>
+          </ion-scroll>
+  
+</div>
+         <!-- <div ng-show="matrice" id="floating-panel2">
+         <h3>Les itinéraires possible</h3>
+         <ion-scroll has-bouncing="true"  direction="y" style="overflow: hidden;height: 470px;" >
+         vous avez {{matrice.length}} chemin pour aller de {{origin.name}} vers {{destination.name}} avec une distance de {{dist}} m.
+            <ion-list show-reorder="true" style="margin-top:10px;">
+
+              <div ng-repeat="iti in matrice">
+              Itinéraire {{$index +1}}:
+ 
+
+                
+                
+                <ion-item class="enable-pointer-events" ng-click="toggleGroup(iti)" >
+
+                 <a style="text-decoration: none;" ng-repeat="i in iti">
+                   <i  class="icon ion-arrow-graph-up-right stable" ></i> 
+                 {{i.station.name}}
+                 </a>
+                  <a style="float:right;"  ><i class="icon item-icon-left" ng-class="isGroupShown(i) ? 'ion-minus' : 'ion-plus'"></i></a>
+   
+               </ion-item>
+               </div>
+
+              </div>
+         
+
+            </ion-list>
+          </ion-scroll>
         </div>  -->
+        
+
+    
     </ion-content>
 </ion-view>

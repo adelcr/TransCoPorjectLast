@@ -7,7 +7,6 @@ angular.module('starter.controllers')
     var myPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
     var mapOptions=optionInt(myPos);
     var $Map= new transMap(document.getElementById("map"),mapOptions);
- console.log($Map);
       StationService.getAllStation().then(function(result){
         $scope.stations=result;
         var i=0;
@@ -38,7 +37,37 @@ angular.module('starter.controllers')
             found[0].info.open($Map.gMap,found[0]);
       $Map.zoom(17);
         };
-
+  $scope.currenetLigneShow= "selectionnez une ligne dans le menu à droite";
+      $scope.currenetLigne=null;
+        $scope.toggleGroup = function(group) {
+        group.show = !group.show;
+        if (group.show==true) {
+          if ($scope.currenetLigne!=null) {
+            $scope.currenetLigne.show=false;
+            if ($scope.directionDisplay) {
+              $scope.directionDisplay.setMap(null);
+            }
+          }
+          $scope.stat=group.stations;
+            $scope.currenetLigne= group;
+            $scope.currenetLigneShow=group.name;
+            if ($scope.currenetLigne.stations.length!=0) {
+              $scope.drawLigne($scope.currenetLigne);
+            }
+        }
+        if(group.show==false) {
+          console.log("ok");
+          $scope.currenetLigne=null;
+          $scope.stat=null;
+          $scope.currenetLigneShow= "selectionnez une ligne dans le menu à droite";
+          if ($scope.directionDisplay) {
+            $scope.directionDisplay.setMap(null);
+          }
+        }
+      };
+      $scope.isGroupShown = function(group) {
+        return group.show;
+      };
 
         
         function distance(origin,destination){
@@ -48,84 +77,141 @@ angular.module('starter.controllers')
           return Math.round(dist);
         };
         $scope.searchIti=[];
-        function findStatLigne(origin,destination,save){
-          var tabFound=[];
-          var tabFoundDest=[];
-            var tabCu={};
-
-          var found=[];
-          var foundDest=[];
-          var ligneOr=null;
-          var ligneDest=null;
-          var currentligne=null;
-          var interligne=null;
-          var originIndex;
-          var destinationIndex;
-          $scope.ligne.some(function(ligne, index) {
-
-            ligne.stations.some(function(s,index){
+        function hasNext(station){
+          var node={
+              id:station._id,
+              station: station,
+              previous:[],
+              next:[]
+          }
+          station.lignes.forEach(function(ligne,index){
+            var lignenext= $filter('filter')($scope.ligne,{_id:ligne.ligne}, true);
+              if(lignenext[0].stations[ligne.order]){
+                var next={
+                  id:lignenext[0].stations[ligne.order].station._id,
+                  station:lignenext[0].stations[ligne.order].station,
+                  ligne:ligne.ligne
+              };
+              var existtow= $filter('filter')(node.next,{id:next.id}, true);
+              if (existtow.length==0) {
+                node.next.push(next);
+              }
               
-              
-              var tab=[];
-              tab.push(s.station);
-              found= $filter('filter')(tab,{_id:origin._id}, true);
-              foundDest= $filter('filter')(tab,{_id:destination._id}, true);
-              if (found.length!=0 ) {
-                
-                var format={
-                  originIndex:index,
-                  ligneOr:ligne
-                  };
-                  tabFound.push(format);
-                }
 
-              if (foundDest.length!=0 ) {
-                var format={
-                  destinationIndex: index,
-                  ligneDest:ligne
-                  };
-                tabFoundDest.push(format);
-                }       
-            });
+            }
+            if(lignenext[0].stations[ligne.order-2]){
+                var previous={
+                  id:lignenext[0].stations[ligne.order-2].station._id,
+                  station:lignenext[0].stations[ligne.order-2].station,
+                  ligne:ligne.ligne
+                };
+                node.previous.push(previous);
+              }
 
           });
+          if(node.next.length==0){
+              node={
+                id:station._id,
+                station: station,
+                previous:node.previous
+              }
+            return node;
 
-          var trouve=false;
-          tabFound.some(function(objori,index){
-            tabFoundDest.some(function(objdest,index){
+          }else if(node.previous.length==0){
+              node={
+                id:station._id,
+                station: station,
+                next:node.next
+              }
 
-              if (objori.ligneOr._id===objdest.ligneDest._id) {
-                currentligne=objori.ligneOr;
-                 tabCu={
-                        currentligne: currentligne,
-                        originIndex: objori.originIndex,
-                        destinationIndex: objdest.destinationIndex
-                        };
-                trouve=true;
-              } 
-            });
-          });
-          if (trouve) {
-
-            return tabCu;
-          } else{
-              tabCu={
-                    ligneOr: tabFound,
-                    ligneDest: tabFoundDest
-                    };
-                    return tabCu;
-          } 
-
-
+            return node;
+          }
+        return node;
         }
+        function DrawGraph(origin,graph){
+          
+          var node = hasNext(origin);
+          var exist= $filter('filter')(graph,{id:node.id}, true);
 
+          if(exist.length===0){
+                 graph.push(node);
+          }
+          if(!node.next){          
+              return graph;
+          } else{
+              node.next.forEach(function(next,index){
+              graph= DrawGraph(next.station,graph);
+
+              });
+              return graph
+
+          }
+        }
+        
+        
+        function PathToFound2(graph,source,destination,tabqueue,tmp_queue,indice){
+          if(source.id!=destination._id){
+              var tmp_queue2=[];
+              tmp_queue2 = tmp_queue2.concat(tmp_queue);
+                tmp_queue2.push(source);
+                var test=false;
+                if (tabqueue[indice]) {
+                  if (tabqueue[indice].length>0) {
+                    do{
+                      if(tabqueue[indice][tabqueue[indice].length-1].next){
+                        tabqueue[indice][tabqueue[indice].length-1].next.forEach(function(next,index){
+                          if (next.id==source.id) {
+                            test=true;
+                          }
+                        });
+                      }
+                      if (test==false) {
+                        indice++;
+                      }
+                    }while((indice<tabqueue.length)&&(test==false));
+
+                  } 
+            }
+            tabqueue[indice]=tmp_queue2;          
+
+              if(source.next){              
+              if(source.next.length>1){
+                for (var i = 0; i <source.next.length; i++) {
+                  if(i==0){
+                  var fils0= $filter('filter')(graph,{id:source.next[i].id}, true);
+                  tabqueue=PathToFound2(graph,fils0[0],destination,tabqueue,tmp_queue2,indice);
+                  
+                  } else{
+                    var fils= $filter('filter')(graph,{id:source.next[i].id}, true);
+                  tabqueue=PathToFound2(graph,fils[0],destination,tabqueue,tmp_queue2,indice+1);
+                  }
+                  
+                  
+                }
+                }else{
+                  var fils0= $filter('filter')(graph,{id:source.next[0].id}, true);
+                    tabqueue=PathToFound2(graph,fils0[0],destination,tabqueue,tmp_queue2,indice);
+                }     
+            }
+            
+            }else{
+            var tmp_queue2=[];
+            tmp_queue2 = tmp_queue2.concat(tmp_queue);
+            tmp_queue2.push(source);
+              tabqueue[indice]=tmp_queue2;
+              return tabqueue;
+            }     
+            
+                  
+                  return tabqueue;
+   
+        }
         $scope.finditi=function(origin,destination) {
-          var originIndex;
-          var destinationIndex;
-          var ligneTemp=[];
-          var diststation=0;
-          $scope.stationligne=[];
-
+          var graph=[];
+          var tabqueue=[];
+          var tabint= [];
+          var tabresult=[];
+          var matrix=[];
 
           if ($scope.directionDisplay) {
               $scope.directionDisplay.setMap(null);
@@ -134,66 +220,28 @@ angular.module('starter.controllers')
           $scope.directionDisplay= new google.maps.DirectionsRenderer({
             'map':$Map.gMap
           });
-          var tab = findStatLigne(origin,destination,true);
-          if ((tab.ligneOr!=null)&&(tab.ligneDest!=null)) {
-            tab.ligneOr.some(function(ligneor,index){
-              
-              tab.ligneDest.some(function(lignedest,index){
-                ligneor.ligneOr.stations.some(function(stationOr,index){
-              
-                  lignedest.ligneDest.stations.some(function(stationDest,index){
-                      var tabInt = findStatLigne(stationOr.station,stationDest.station,true);
-                      if (tabInt.currentligne!=null) {
-                       
-                          for (var i = tab.ligneOr[0].originIndex; i <=tabInt.originIndex+1 ; i++) {
-                              ligneTemp.push(tab.ligneOr[0].ligneOr.stations[i]);
+          graph = DrawGraph(origin,graph);
+          
+
+          tabqueue[0]=tabint;
+          tabqueue=PathToFound2(graph,graph[0],destination,tabqueue,tabint,0);
+          tabqueue.forEach(function(queue,indice){
+
+              if (queue[queue.length-1].id==destination._id) {
  
-                          }
-                          
-                          for (var j = tabInt.originIndex+1; j <=tabInt.destinationIndex ; j++) {
-                              ligneTemp.push(tabInt.currentligne.stations[j]);
-                             
-                          }
-                           
-                          for (var k = tabInt.destinationIndex+1; k <=tab.ligneDest[0].destinationIndex ; k++) {
-                              ligneTemp.push(tab.ligneDest[0].ligneDest.stations[k]);  
-                          }
-                          TransmapFact.drawLigne(ligneTemp,0,ligneTemp.length-1,$scope);
-                          $scope.dist=distance(origin,destination);
-                          $scope.stationligne=ligneTemp;
-                           console.log($scope.stationligne);
-                          
-                      } else{
-                       
-                        var tabligneor= tabInt.ligneOr;
-                          var tabdist=[];
-                           var tabDistmin={};
-                          for (var i = 0; i < tabligneor.length; i++) {
-                            for (var j = 0; j < tabligneor[i].ligneOr.stations.length; j++) {
-                       
-                             
-                              var newmin=distance(tabligneor[i].ligneOr.stations[j].station,destination);
-                              tabdist.push(newmin);
-                              var min=Math.min(tabdist);
-                              console.log(tabligneor[i].ligneOr.stations[j].station);
-                              console.log(destination);
-                              console.log(min);
-                          }
-                        }
-                      }
+                matrix.push(queue);
+              }
+            });
 
-                  });
-                });   
-          });
-        });
-
-      }else  { 
-        TransmapFact.drawLigne(tab.currentligne.stations,tab.originIndex,tab.destinationIndex,$scope);
-        $scope.stationligne=tab.currentligne.stations;
-        $scope.stationligne.splice(tab.destinationIndex+1,$scope.stationligne.length-(tab.destinationIndex+1));
-        $scope.stationligne.splice(0,tab.originIndex);
+        TransmapFact.drawLignenew(matrix[0],0,matrix[0].length-1,$scope);
         $scope.dist=distance(origin,destination);
-        } 
-      }
-  });
+        $scope.stationligne=matrix[0];
+        $scope.matrice=matrix;
+        $scope.origin=origin;
+        $scope.destination=destination;
+          console.log(tabqueue);
+          console.log($scope.matrice);
+         };
+       });
 });
+        

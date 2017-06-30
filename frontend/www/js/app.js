@@ -46,7 +46,7 @@ angular.module('starter', [
 
   // This fixes transitions for transparent background views
   $rootScope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams){
-    if(toState.name.indexOf('app.station') > -1)
+    if(toState.name.indexOf('app.ligne') > -1)
     {
       // set transitions to android to avoid weird visual effect in the walkthrough transitions
       $timeout(function(){

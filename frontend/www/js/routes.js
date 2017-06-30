@@ -90,22 +90,20 @@ angular.module('starter.routes', ['starter.config'])
         }
     }
   })
-    //Recherche
+    //Station
 
-  .state('app.recherche', {
-    url: "/recherche",
+  .state('app.favorie', {
+    url: "/favorie",
+        cache:false,
     views: {
       'menuContent': {
-        templateUrl: "views/app/recherche/recherche.html",
-        controller: 'RechercheCtrl'
+        templateUrl: "views/app/favorie.html",
+        controller: 'FavorieCtrl'
         }
     }
   })
-  .state('map', {
-    url: "/map",
-    templateUrl: "views/testmap.html",
 
-  })
+
   //ligne
   .state('app.ligne', {
     url: "/ligne",
@@ -119,5 +117,5 @@ angular.module('starter.routes', ['starter.config'])
   });
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/station');
+  $urlRouterProvider.otherwise('/app/ligne');
 });

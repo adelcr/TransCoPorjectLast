@@ -59,8 +59,16 @@ apiLigne.post('/addst', function(req, res) {
     			station:req.body.station,
     			order:req.body.order
     		};
-    		
+        Station.findById(req.body.station, function(err, station) {
+            var li={
+                ligne: ligne._id,
+                order:req.body.order
+            }
+            station.lignes.push(li);
+            station.save();
 
+        });
+    		
     		ligne.stations.push(station);
     		console.log(ligne);
     		Ligne.findByIdAndUpdate( ligne._id,ligne,{new:true})

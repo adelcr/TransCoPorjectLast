@@ -27,6 +27,10 @@ table th {
     font-size: 14px;
     letter-spacing: 1px;
 }
+.container {
+  width: 80%;
+  margin: 20px auto;
+}
 
 </style>
     <ion-content>
@@ -67,6 +71,7 @@ table th {
           boundary-links="true" >
         </dir-pagination-controls>
 </div>
+<<<<<<< HEAD
  -->
     <div style="margin:5px; border:1px solid DarkGrey;display:inline-block;border-radius:5px;">
       <button class="button button-stable" modal-select="" ng-model="selectedLigne" options="ligne" 
@@ -94,5 +99,15 @@ table th {
         chart-data="data" chart-labels="days" chart-series="series">
       </canvas>
     </div>
+=======
+<div class="container"> 
+  
+  <canvas id="bar" class="chart chart-bar" 
+  chart-data="data" chart-labels="labels" chart-series="series">
+  </canvas>
+
+</div>
+
+>>>>>>> origin/master
     </ion-content>
 </ion-view>
