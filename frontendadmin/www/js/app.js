@@ -13,6 +13,7 @@ angular.module('starter', [
   'naif.base64',
   'angularMoment',
   'ui.sortable',
+  'ionic-modal-select',
   'angularUtils.directives.dirPagination',
   'starter.controllers',
   'starter.factories',

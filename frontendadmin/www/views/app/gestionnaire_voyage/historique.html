@@ -1,4 +1,5 @@
 <ion-view view-title="Gestion agent" cache-view="false">
+
 <style>
 
 
@@ -29,7 +30,7 @@ table th {
 
 </style>
     <ion-content>
-    <div style="margin:20px;">
+    <!--<div style="margin:20px;">
       <form class="form-inline">
         <div class="form-group" style="float:right;">
           <input type="text" ng-model="search" class="form-control" placeholder="  Search">
@@ -66,8 +67,32 @@ table th {
           boundary-links="true" >
         </dir-pagination-controls>
 </div>
-<canvas id="bar" class="chart chart-bar" 
-  chart-data="data" chart-labels="labels" chart-series="series">
-</canvas>
+ -->
+    <div style="margin:5px; border:1px solid DarkGrey;display:inline-block;border-radius:5px;">
+      <button class="button button-stable" modal-select="" ng-model="selectedLigne" options="ligne" 
+      modal-title="Selectionnez une ligne" has-search="true" on-select="getVoyage(newValue)" on-reset="removeStat(selectedLigne)">
+        {{ selectedLigne || &apos;choisir une ligne&apos;}}
+        <div class="option">
+          {{option}}
+        </div>
+      </button>
+       <button ng-show="selectedLigne" class="button button-stable" modal-select="" ng-model="selectedVoyage" options="voyage"
+      modal-title="Selectionnez un voyage"  on-select="setChart(newValue)" has-search="true" on-reset="removeStat(selectedVoyage)">
+        {{ selectedVoyage || &apos;choisir un voyage&apos;}}
+        <div class="option">
+          {{option}}
+        </div>
+      </button>
+    </div>
+
+
+    <div ng-show="!selectedVoyage" style="text-align:center;padding-top:25vh;">
+      <i  style=""> selectionnez une ligne et un voyage pour afficher les statistiques de retard</i>
+    </div>
+    <div ng-show="selectedVoyage">
+      <canvas  id="bar" class="chart chart-bar" height="90vh" style="margin:5px;"
+        chart-data="data" chart-labels="days" chart-series="series">
+      </canvas>
+    </div>
     </ion-content>
 </ion-view>
