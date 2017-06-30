@@ -1,0 +1,31 @@
+<div class="user-bio"> 
+       <form name="signup_form" class="" novalidate> 
+            <div class="item item-body"> 
+              <label class="item item-divider" ><i class="icon ion-person"></i> Agent informations:</label> 
+               <label class="item item-input"> 
+                <input type="text" placeholder="Matricule" name="user_matricule" ng-model="adduser.matricule" required> 
+              </label> 
+              <label class="item item-input"> 
+                <input type="email" placeholder="Email" name="user_email" ng-model="adduser.email" required> 
+              </label>  
+              <label class="item item-input"> 
+                <input type="text" placeholder="Name" name="user_name" ng-model="adduser.name" required> 
+              </label> 
+              <label class="item item-input"> 
+                <input type="text" placeholder="Lastname" name="user_lastname" ng-model="adduser.lastname" required> 
+              </label> 
+              <label class="item item-input"> 
+                <input type="text" placeholder="Agent login" name="user_login" ng-model="adduser.login" required> 
+              </label>
+              <label class="item item-input"> 
+                <input type="password" placeholder="Password" name="user_password" ng-model="adduser.password" required> 
+              </label> 
+
+            </div> 
+            <div class="item item-body bottom-content"> 
+              <button type="submit" class="button button-assertive button-block" ng-click="submit()" ng-disabled="signup_form.$invalid"> 
+                Ajouter un agent d'exploitation 
+              </button> 
+            </div> 
+          </form> 
+    </div>

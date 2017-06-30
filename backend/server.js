@@ -75,8 +75,13 @@ var apiHistorique = require('./app/routes/historique-route');
 // connect the api routes under /api/*
 app.use('/historique', apiHistorique);
 
+var apiFavorie = require('./app/routes/favorie-route');
+// connect the api routes under /api/*
+app.use('/favorie', apiFavorie);
 
-
+var apiNotification = require('./app/routes/notification-route');
+// connect the api routes under /api/*
+app.use('/notification', apiNotification);
 
 /*
 var uploadPhoto=require('./app/routes/upload-file').uploadFile;

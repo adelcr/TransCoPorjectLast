@@ -1,0 +1,21 @@
+     <div class="user-bio"> 
+       <form name="signup_form" class="" novalidate> 
+            <div class="item item-body"> 
+              <label class="item item-input"> 
+                <input type="text"  name="station" ng-model="currentnotif.station" required> 
+              </label> 
+              <label class="item item-input"> 
+                <input type="text"  name="ligne" ng-model="currentagent.ligne" required> 
+              </label> 
+              <label class="item item-input"> 
+                <input type="text"  name="voyage" ng-model="currentnotif.voyage" required> 
+              </label> 
+
+            </div> 
+            <div class="item item-body bottom-content"> 
+              <button type="submit" class="button button-assertive button-block" ng-click="submitupdate()" ng-disabled="signup_form.$invalid"> 
+                Update Notification 
+              </button> 
+            </div> 
+          </form> 
+    </div> 

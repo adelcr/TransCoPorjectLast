@@ -1,0 +1,17 @@
+<ion-view class="profile-view" cache-view="false">
+  <ion-nav-title>
+    <span>Profile</span>
+  </ion-nav-title>
+  <ion-content>
+   <div class="list" ng-repeat="n in notif">
+   <br>
+   <br>
+   <br>
+     <div class="item item-divider" >{{$index + 1}} Favorie</div>
+     <div class="item">{{n._id}}  <button class="button button-balanced" ng-click="updatefavorie(n)">Modifier</button> <button class="button button-assertive" ng-click="removefavorie(n._id,$index)">Supprimer</button></div>
+     
+
+    
+  </div>
+  </ion-content>
+</ion-view>
