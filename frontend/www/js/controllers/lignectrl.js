@@ -11,7 +11,7 @@ angular.module('starter.controllers')
         $scope.stations=result;
         var i=0;
         angular.forEach($scope.stations,function(station,index){
-          TransmapFact.drawMarker(station,$Map);
+          TransmapFact.drawMarker(station,$Map,$compile,$scope);
           TransmapFact.addInfoWindowListner($Map.markers.items[i],$Map);
                   i++;
         });
@@ -28,7 +28,31 @@ angular.module('starter.controllers')
               });
             $Map.gMap.setCenter(found[0].getPosition());
         };
-
+    $scope.addFavorie=function(marker){
+      $scope.doom={};
+      console.log(marker);
+          var myPopup = $ionicPopup.show({
+          template: '<div>'+
+               '<select class="ion-select" ng-model="doom.selected" ><option>ok</option> </select>'+
+               '</div><div>'+
+               '<select class="ion-select" ng-model="doom.selected" ><option ng-repeat="l in marker.lignes"value="{{l._id}}">ok</option></select>'+
+               '</div>',
+          title: 'Entrer la ligne',
+          scope: $scope,
+          
+          buttons: [
+            { text: 'Annuler' },
+            {
+              text: '<b>valid ligne</b>',
+              type: 'button-positive'
+            }
+          ]
+        });
+        myPopup.then(function(res) {
+          console.log("ok");
+          
+        });
+    }
     $scope.gotoPosStation=function ($id) {
       var found =$Map.findBy(function(marker){
                 return marker.id==$id;

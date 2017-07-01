@@ -1,18 +1,17 @@
 angular.module('starter.factories', [])
 .factory('TransmapFact', function (){
 	var AppFactory ={
-		drawMarker:function(marker,$transMap){
-
-	          console.log(marker);
-			var infowindow = new google.maps.InfoWindow({
-	          	content:" <div ng-non-bindable=''><div style='height:100%;float:left;margin-right:10px;'>"+
+		drawMarker:function(marker,$transMap,$compile,$scope){
+			var content=" <div ><div style='height:100%;float:left;margin-right:10px;'>"+
 	          				"<img style='border-radius: 24px;width:64px;height:64px;' src=data:image/png;base64,"+marker.image+"></img>"+
             				"</div><div style='width:256px;'>"+
             				"<strong>"+marker.name+"</strong><br>"+
-            				"<a ng-click='addFavorie(marker)'>Ajouter aux favorie </a>"+
-            				"<p>"+marker.description+" </p>"+
-            				
-            				"</div></div>"
+            				"<button class='button button-light button-small ion-ios-star' ng-click='addFavorie("+JSON.stringify(marker)+")' >Ajouter aux favorie </button>"+
+            				/*"<p>"+marker.description+" </p>"+*/
+            				"</div></div>";
+            var compiled = $compile(content)($scope);
+			var infowindow = new google.maps.InfoWindow({
+	          	content:compiled[0]
 	        });
 			$transMap.addMarker({
 	            lat:parseFloat(marker.Pos.lat),
