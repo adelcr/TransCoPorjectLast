@@ -29,6 +29,7 @@ angular.module('starter.controllers')
                 i++;
 			});
 		});	
+		
 	    function updateBus($scope,$Map){
 	    	BusService.updatePosBus($scope,$Map);
 	    	
