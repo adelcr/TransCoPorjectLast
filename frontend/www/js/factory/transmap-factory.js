@@ -2,8 +2,6 @@ angular.module('starter.factories', [])
 .factory('TransmapFact', function (){
 	var AppFactory ={
 		drawMarker:function(marker,$transMap){
-
-	          console.log(marker);
 			var infowindow = new google.maps.InfoWindow({
 	          	content:" <div ng-non-bindable=''><div style='height:100%;float:left;margin-right:10px;'>"+
 	          				"<img style='border-radius: 24px;width:64px;height:64px;' src=data:image/png;base64,"+marker.image+"></img>"+

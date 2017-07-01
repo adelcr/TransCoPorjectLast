@@ -102,6 +102,16 @@ angular.module('starter.routes', ['starter.config'])
         }
     }
   })
+   .state('app.notification', {
+    url: "/notification",
+        cache:false,
+    views: {
+      'menuContent': {
+        templateUrl: "views/app/notification.html",
+        controller: 'NotificationCtrl'
+        }
+    }
+  })
 
 
   //ligne

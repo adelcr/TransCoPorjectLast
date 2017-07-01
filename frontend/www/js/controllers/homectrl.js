@@ -1,6 +1,6 @@
 angular.module('starter.controllers')
 
-.controller('AppCtrl', function($scope,AuthService, $ionicConfig, $state) {
+.controller('AppCtrl', function($scope,$ionicPopover,AuthService, $ionicConfig, $state,NotificationService) {
 	console.log("AppCtrl");
 	
 	$scope.isAuth=false;
@@ -9,6 +9,7 @@ angular.module('starter.controllers')
 		if($scope.isAuth==true)	{
 			AuthService.getinfo().then(function(result){
 	 		$scope.user=result;
+	 		console.log($scope.user._id);
 			});
 
 			$scope.logout = function() {
@@ -19,6 +20,33 @@ angular.module('starter.controllers')
 	 	}else{
 	 		console.log(AuthService.isAuthenticated);
 	 	}
+
+	 	AuthService.getinfo().then(function(res){
+        
+	        $scope.v=res;
+	        NotificationService.getNotificationByVoyageur($scope.v._id).then(function(result){
+				$scope.notification=result;
+				$scope.number=$scope.notification.length;
+				console.log($scope.notification);
+				
+			});
+
+        });
+       $scope.removenotification = function(id,index) {
+      
+       
+              NotificationService.removeNotification(id).then(function(result){
+                console.log(index);
+                delete $scope.notification[index];
+              });
+
+
+    };
+	 	  $ionicPopover.fromTemplateUrl('views/app/side-menu.html', {
+			    scope: $scope,
+			  }).then(function(popover) {
+			    $scope.popover = popover;
+			  });
 })
 
 .controller('ProfileCtrl', function($http,$scope,$ionicPopup,AuthService,ProfileService, $state,$window) {

@@ -5,10 +5,31 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
-      <ion-nav-buttons side="right">
-       <button class="button button-icon button-clear ion-ios-search" >
-        </button>
+      <ion-nav-buttons  side="right" ng-show="isAuth==true">
+    <!--   <span class="label label-warning" style=" width: 15px; background-color: blue;
+    height: 25px; border-radius: 30px / 20px;margin-right:-15px;  ">{{number}}</span> -->
+    <span id="blog-badge" style="display: block;">1</span>
+       <button class="button button-icon button-clear ion-ios-bell-outline nav site-nav" ng-click="popover.show($event)">
+
+        <script id="views/app/side-menu.html" type="text/ng-template">
+          <ion-popover-view>
+            <ion-content >
+            <a class="item" >
+                <b style="font-size: 14px;">Notifications</b>
+                </a>
+              <div class="list" ng-repeat="n in notification">
+              
+                <a class="item" ng-click="removenotification(n._id,$index)"><i class="ion-ios-eye-outline" style="font-size: 10px;"></i>
+                Le bus {{n.voyage.ligne.name}} arrive dans 15 min à l'{{n.station.name}}
+                </a> <br>
+                </div>
+              </ion-content>
+            </ion-popover-view>
+       </script>
+      </button>
+
       </ion-nav-buttons>
+    
 
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
@@ -94,3 +115,4 @@
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>
+ 

@@ -118,6 +118,14 @@ apiFavorie.get('/getbyvoyage/:id', function(req, res) {
 
 apiFavorie.get('/getbyvoyageur/:id', function(req, res) {
     Favorie.find({ 'voyageur': req.params.id })
+    .populate({
+            path:'station',
+            select:'name'
+        })
+    .populate({
+            path:'voyage',
+            populate: { path: 'ligne',model: Ligne}
+        })
     .exec(function(err, favories) {
         if (err) throw err;
         if (!favories) {

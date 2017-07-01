@@ -1,14 +1,17 @@
-<ion-view class="profile-view" cache-view="false">
+<ion-view view-title="Favories" cache-view="false">
   <ion-nav-title>
-    <span>Profile</span>
+    <span>Favories</span>
   </ion-nav-title>
   <ion-content>
+  <h2 style="text-align: center;">Vos Favories</h2>
    <div class="list" ng-repeat="n in notif">
    <br>
    <br>
+      
+
    <br>
-     <div class="item item-divider" >{{$index + 1}} Favorie</div>
-     <div class="item">{{n._id}}  <button class="button button-balanced" ng-click="updatefavorie(n)">Modifier</button> <button class="button button-assertive" ng-click="removefavorie(n._id,$index)">Supprimer</button></div>
+     <div class="item item-divider" >{{$index + 1}})Favorie</div>
+     <div class="item">Vous ajouter la {{n.station.name}} de la ligne {{n.voyage.ligne.name}} à {{n.voyage.dateDepart | date:'HH:mm'}} comme favorie<button class="button button-balanced" ng-click="updatefavorie(n)">Modifier</button> <button class="button button-assertive" ng-click="removefavorie(n._id,$index)">Supprimer</button></div>
      
 
     
